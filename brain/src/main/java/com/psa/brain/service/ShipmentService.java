@@ -25,15 +25,14 @@ public class ShipmentService {
     private UnloadingAreaRepository unloadingAreaRepository;
 
     // Update ETA every 10 minutes
-    @Scheduled(fixedRate = 600000)  // 600,000 ms = 10 minutes
+    @Scheduled(fixedRate = 6000000)  // 600,000 ms = 10 minutes
     public void updateETAs() {
-        List<Shipment> shipments = shipmentRepository.findAll();
+        List<Shipment> shipments = shipmentRepository.findAllShipmentsNotArrivedOrderedByEta(LocalDateTime.now());
         Random random = new Random();
 
         for (Shipment shipment : shipments) {
             if (shipment.getEta() != null) {
                 shipment.setEta(shipment.getEta().plusMinutes(random.nextInt(60) - 30)); 
-                shipment.setEstimatedLeavingTime(calculateEstimatedLeavingTime(shipment.getEta(), shipment.getEstimatedUnloadingTime()));
                 shipment.setPriorityScore((float) calculatePriorityScore(shipment));
                 shipmentRepository.save(shipment);
             }
@@ -68,14 +67,6 @@ public class ShipmentService {
                (weightGoodsType * goodsTypeScore) +
                (weightUnloadingTime * unloadingTimeScore) +
                (weightUrgency * urgencyScore);
-    }
-
-    // Calculate scheduled leaving time based on ETA and unloading time
-    private LocalDateTime calculateEstimatedLeavingTime(LocalDateTime eta, int unloadingTimeInMinutes) {
-        if (eta != null) {
-            return eta.plusMinutes(unloadingTimeInMinutes);
-        }
-        return null;
     }
 
     public List<Shipment> getShipmentsNotArrivedOrderedByPriorityScore() {

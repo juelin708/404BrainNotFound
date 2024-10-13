@@ -54,3 +54,11 @@ VALUES
 ('SHP013', 'NOT_PERISHABLE', NOW() + INTERVAL 8 DAY, NOW() + INTERVAL 8 DAY + INTERVAL 3 HOUR, 'truck', 0, 110, 45.0),
 ('SHP014', 'PERISHABLE', NOW() + INTERVAL 9 DAY, NOW() + INTERVAL 9 DAY + INTERVAL 2 HOUR, 'ship', 2, 80, 90.5),
 ('SHP015', 'NOT_PERISHABLE', NOW() + INTERVAL 10 DAY, NOW() + INTERVAL 10 DAY + INTERVAL 3 HOUR, 'truck', 1, 140, 72.0);
+
+INSERT INTO shipments (shipment_id, cargo_type, eta, scheduled_arrival_time, next_mode, urgency, estimated_unloading_time, priority_score)
+VALUES 
+('SHP016', 'PERISHABLE', NOW() + INTERVAL 1 HOUR, NOW() + INTERVAL 30 MINUTE, 'truck', 2, 90, 98.0);
+
+INSERT INTO shipments (shipment_id, cargo_type, eta, scheduled_arrival_time, next_mode, urgency, estimated_unloading_time, priority_score)
+VALUES 
+('SHP017', 'NOT_PERISHABLE', NOW() - INTERVAL 1 HOUR, NOW() - INTERVAL 2 HOUR, 'rail', 1, 120, 80.0);
