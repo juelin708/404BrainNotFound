@@ -1,20 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import shipLogo from './ship.pic.jpg';  // Import the ship logo image
+import shipLogo from './ship.png';  // Import the ship logo image
 
 // Sample cargo data
 const initialCargoData = [
   { id: 'CARGO001', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
   { id: 'CARGO002', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
   { id: 'CARGO003', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
-    { id: 'CARGO004', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
-    { id: 'CARGO005', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
-      { id: 'CARGO006', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
-      { id: 'CARGO007', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
-        { id: 'CARGO008', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
-        { id: 'CARGO009', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
-                { id: 'CARGO010', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
-  // Add more sample cargo data as needed
+  { id: 'CARGO004', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
+  { id: 'CARGO005', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
+  { id: 'CARGO006', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
+  { id: 'CARGO007', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
+  { id: 'CARGO008', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
+  { id: 'CARGO009', ETA: '2024-10-15 14:00', type: 'Perishable', unloadingTime: 2, emergency: true },
+  { id: 'CARGO010', ETA: '2024-10-15 16:00', type: 'Non-Perishable', unloadingTime: 4, emergency: false },
 ];
 
 // Unloading area status simulation
@@ -82,37 +81,40 @@ function App() {
         </table>
       </div>
 
-      {/* Right Top Section: Incoming Cargo */}
-      <div className="incoming-cargo">
-        <h2>Incoming Cargo</h2>
-        {urgentCargo.length > 0 && (
-          <div className="cargo-info">
-            <img src={shipLogo} alt="Ship Logo" className="ship-logo" />
-            <div>
-              <p><strong>ID:</strong> {urgentCargo[0].id}</p>
-              <p><strong>ETA:</strong> {urgentCargo[0].ETA}</p>
+      {/* Right Panel */}
+      <div className="right-panel">
+        {/* Right Top Section: Incoming Cargo */}
+        <div className="incoming-cargo">
+          <h2>Incoming Cargo</h2>
+          {urgentCargo.length > 0 && (
+            <div className="cargo-info">
+              <img src={shipLogo} alt="Ship Logo" className="ship-logo" />
+              <div>
+                <p><strong>ID:</strong> {urgentCargo[0].id}</p>
+                <p><strong>ETA:</strong> {urgentCargo[0].ETA}</p>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      {/* Right Bottom Section: Unloading Areas */}
-      <div className="unloading-areas">
-        <h2>Unloading Areas</h2>
-        <div className="areas-row">
-          {unloadingAreas.map((area) => (
-            <div key={area.areaID} className={`area ${area.status === 'Free' ? 'free' : 'busy'}`}>
-              <p>{area.areaID}</p>
-              {area.status === 'Busy' && (
-                <>
-                  <img src={shipLogo} alt="Ship" className="ship-logo" />
-                  <p><strong>Cargo ID:</strong> {area.cargoID}</p>
-                  <p><strong>Start:</strong> {area.startTime}</p>
-                  <p><strong>End:</strong> {area.endTime}</p>
-                </>
-              )}
-            </div>
-          ))}
+        {/* Right Bottom Section: Unloading Areas */}
+        <div className="unloading-areas">
+          <h2>Unloading Areas</h2>
+          <div className="areas-row">
+            {unloadingAreas.map((area) => (
+              <div key={area.areaID} className={`area ${area.status === 'Free' ? 'free' : 'busy'}`}>
+                <p>{area.areaID}</p>
+                {area.status === 'Busy' && (
+                  <>
+                    <img src={shipLogo} alt="Ship" className="ship-logo" />
+                    <p><strong>Cargo ID:</strong> {area.cargoID}</p>
+                    <p><strong>Start:</strong> {area.startTime}</p>
+                    <p><strong>End:</strong> {area.endTime}</p>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
